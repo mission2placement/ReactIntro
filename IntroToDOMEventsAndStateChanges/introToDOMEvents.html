@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- We need to add babel script for the browser to understand that the script is JSX-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <title>React</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        state = {
+          name: 'Lionel',
+          age: 30
+        }
+
+        // We write the normal javascript function
+        // The event argument here is taken automatically and we don't have to pass it from the component.
+
+        handleClick(e){
+          console.log(e.target);
+          // Let's try accessing the state in here.
+          console.log(this.state.name);
+          /*
+            this.state is giving undefined.
+             It is not accessing the state here but it's accessing in JSX, why?
+             The reason is -- the value of 'this' in the two locations
+             'this' keyword loses the context in the where the functions sits
+
+             This is how Javascript works-- the context of the 'this' is defined by the function it calls
+             and not by the position where function sits.
+
+             The 'this' keyword in the JSX remains because the context is within the rendered react component.
+
+             We have to bind the 'this' keyword manually to our custom functions unlike 'this' inside the JSX.
+
+             We use arrow functions here. And here this will work.
+              ---> handleClick = (e) => {} --- it binds the 'this' instance of the class App to the function.
+            Once we change it it will be able to access the instance.
+          */
+         }
+
+        handleMouseOver(e){
+          console.log(e);
+          console.log(e.target, e.pageX, e.pageY);
+        }
+
+        handleOnCopy(e){
+          window.alert('This is my original text OG!');
+        }
+         /*
+          We will create events and check how do we handle those events in the JSX
+          React has multiple events defined which we can find here in the link
+            --> https://reactjs.org/docs/events.html#supported-events
+          We will add a button and see how we add events
+        */
+        render() {
+          return (
+            <div>
+              <h1>My name is : {this.state.name} and my age is {this.state.age} years!</h1>
+              {/* We will see how the click event works
+                   We use camel case to write the event we want to use.
+                   Then we use curly braces because now we want a JS function to be called
+                   and we define the function (can be anyname of choice) and call it here with 'this'
+                   'this' specifies that the component it is fired in.
+                  we do not want to invoke the fumction so we don't use ()
+                */}
+              <button onClick={this.handleClick}>Click Me!</button>
+              <p onMouseOver={this.handleMouseOver}> Mouse Over Here !</p>
+              <h3 onCopy={this.handleCopy}> Try Copying Me!</h3>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

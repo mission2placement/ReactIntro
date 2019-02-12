@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- We need to add babel script for the browser to understand that the script is JSX-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+
+        state = {
+          name: 'Lionel',
+          age: 30
+        }
+
+        handleChange = (e) => {
+          this.setState ({
+            name: e.target.value  // here we are capturingthe value and updating the state on the fly
+          });
+        }
+
+        handleSubmit = (e) => {
+          e.preventDefault();   // we want to prevent the default event behaviour of submit i.e refresh
+          console.log("Form Submitted :", this.state.name );
+        }
+
+        render() {
+          return (
+            <div className='app-content'>
+              <h1>My name is : {this.state.name}</h1>
+              {/*
+                We will create a form which will take the input from the user and print on screen
+                We could have added the onClick event on the button too and itwould have worked
+                But user also submits sometimes by pressing enter and if do on submit on the forms
+                we could capture both.
+                */
+              }
+              <form onSubmit={this.handleSubmit}>
+                  <input type='text' onChange={this.handleChange}/>
+                  <button>Submit</button>
+              </form>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

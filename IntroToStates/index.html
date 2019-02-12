@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- We need to add babel script for the browser to understand that the script is JSX-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      class App extends React.Component {
+        /*
+          Easiest way to define a state is define a state object inside the class
+          This state can also be defined in a constructor method. we will learn that in next Classes
+          For now our webpage can dynamically change data as the state(data of person)
+          can be updated it will update on the UI
+        */
+
+        state = {
+          name: 'Lionel',
+          age: 30
+        }
+        render() {
+          return (
+          // We need to have one root element when we are trying to render JSX element.
+          // we cannot use the class attribute but we use className in JSX.
+            <div className='app-content'>
+              <h1>The Ninja Way.</h1>
+              <p>{Math.random() * 10}</p>
+              {/* So if we want to output the dynamic content we can have to access it*/}
+              <p>My name is : {this.state.name} and the I am {this.state.age} years old</p>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

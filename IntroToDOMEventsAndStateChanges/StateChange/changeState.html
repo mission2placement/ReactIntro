@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- We need to add babel script for the browser to understand that the script is JSX-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <title>React</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        state = {
+          name: 'Lionel',
+          age: 30
+        }
+        /*
+          We want to change the state on click for example.
+        */
+        handleClick = (e) => {
+          // Never directly change the state like below
+          // this.state.name = 'Theiry';
+          // We use setState() function to update the state.
+          this.setState({
+            name: 'Henry',           // We can specify the propeties we wish to change
+            age: 25                 // It's not necessary we access all prop in set state.
+          })
+
+        }
+
+        handleMouseOver = (e) =>{
+          console.log(e);
+          console.log(e.target, e.pageX, e.pageY);
+        }
+
+        handleOnCopy = (e) =>{
+          window.alert('This is my original text OG!');
+        }
+        render() {
+          return (
+            <div>
+              <h1>My name is : {this.state.name} and my age is {this.state.age} years!</h1>
+              <button onClick={this.handleClick}> Click me! </button>
+              <p onMouseOver={this.handleMouseOver}> Mouse here please </p>
+              <h3 onCopy={this.handleOnCopy}> Try Copying me!</h3>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
